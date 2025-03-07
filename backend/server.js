@@ -2,22 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { sequelize } = require('./models');
+const { uploadData } = require('./controllers/uploadController');
 
 const app = express();
+
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5500',
 }));
-app.use(bodyParser.json());
-app.post('https://localhost:5000/upload', async (req, res) => {
-  try {
-    const data = req.body;
-    console.log('Data received:', data);
-    res.json({ message: 'Data received successfully!' });
-  } catch (error) {
-    console.error('Error while receiving data:', error);
-    res.status(500).json({ message: 'Error while receiving data' });
-  }
-});
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+app.post('/upload', uploadData);
+
 sequelize
   .authenticate()
   .then(() => {
@@ -26,6 +22,7 @@ sequelize
   .catch((err) => {
     console.error('Erro ao conectar ao banco de dados:', err);
   });
+
 app.get('/', (req, res) => {
   res.send('Back-end está funcionando!');
 });

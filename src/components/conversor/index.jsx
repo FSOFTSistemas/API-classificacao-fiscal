@@ -1,8 +1,11 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
+import styles from "./styles.module.css";
 
 export default function Conversor() {
   const [jsonData, setJsonData] = useState(null);
+  const [crtValue, setCrtValue] = useState(null);
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -48,9 +51,15 @@ export default function Conversor() {
         PERCENTUAL_DIFERIMENTO: row[24] ? row[24].replace(",", ".") : "",
         PERCENTUAL_ISENCAO: row[25] ? row[25].replace(",", ".") : "",
         CODIGO_ANP: row[26] || "",
+        CRT: crtValue,
       }));
 
       setJsonData(formattedData);
+      const tamanhoEmMB = (
+        JSON.stringify(formattedData).length /
+        (1024 * 1024)
+      ).toFixed(2);
+      console.log(`Tamanho do JSON: ${tamanhoEmMB} MB`);
       sendDataToBackend(formattedData);
     };
     reader.readAsArrayBuffer(file);
@@ -58,7 +67,8 @@ export default function Conversor() {
 
   const sendDataToBackend = async (data) => {
     try {
-      const response = await fetch("https://localhost:5000/upload", {
+      console.log(data);
+      const response = await fetch("http://localhost:5000/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,23 +89,56 @@ export default function Conversor() {
   };
 
   return (
-    <div className="p-4 bg-gray-900 text-white min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Conversor XLSX para JSON</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Upload de Produtos</h1>
+      <p className={styles.radioTitle}>Selecione o regime tributário:</p>
+      <div className={styles.radioGroup}>
+        <label className={styles.radioLabel}>
+          <input
+            type="radio"
+            name="crt"
+            value="01"
+            onChange={(e) => setCrtValue(e.target.value)}
+            required
+            className={styles.radioInput}
+          />
+          Simples Nacional
+        </label>
+        <label className={styles.radioLabel}>
+          <input
+            type="radio"
+            name="crt"
+            value="02"
+            onChange={(e) => setCrtValue(e.target.value)}
+            required
+            className={styles.radioInput}
+          />
+          Lucro Presumido
+        </label>
+        <label className={styles.radioLabel}>
+          <input
+            type="radio"
+            name="crt"
+            value="03"
+            onChange={(e) => setCrtValue(e.target.value)}
+            required
+            className={styles.radioInput}
+          />
+          Lucro Real
+        </label>
+      </div>
       <input
         type="file"
         accept=".xlsx, .xls"
         onChange={handleFileUpload}
-        className="mb-4"
+        className={styles.fileInput}
       />
       {jsonData && (
         <>
-          <pre className="bg-gray-800 p-4 rounded-lg overflow-auto">
+          <pre className={styles.jsonOutput}>
             {JSON.stringify(jsonData, null, 2)}
           </pre>
-          <button
-            onClick={clearData}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg mt-4"
-          >
+          <button onClick={clearData} className={styles.clearButton}>
             Limpar Dados
           </button>
         </>

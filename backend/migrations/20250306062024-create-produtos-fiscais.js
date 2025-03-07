@@ -3,14 +3,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
 
-    await queryInterface.createTable('planilha', {
+    await queryInterface.createTable('ProdutosFiscais', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -18,15 +12,15 @@ module.exports = {
       },
       NCM: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false, //
       },
       DESCRICAO: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       CEST: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false, //
       },
       ALIQUOTA_IPI: {
         type: Sequelize.DECIMAL(10, 2),
@@ -34,7 +28,7 @@ module.exports = {
       },
       CST_IPI:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       EX:{
         type: Sequelize.STRING,
@@ -42,31 +36,31 @@ module.exports = {
       },
       CST_PIS_COFINS_ENTRADA:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       CST_PIS_COFINS_SAIDA:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       CODIGO_SPED:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       ALIQUOTA_PIS:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       ALIQUOTA_COFINS:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       CFOP:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       CST_CSOSN:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true, //adicionar 0 a esquerda para 3 dígitos
       },
       AD_REM_ICMS:{
         type: Sequelize.STRING,
@@ -74,7 +68,7 @@ module.exports = {
       },
       ALIQUOTA_ICMS:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: false, //
       },
       RED_BASE_DE_CALCULO_ICMS:{
         type: Sequelize.DECIMAL(10, 2),
@@ -86,19 +80,19 @@ module.exports = {
       },
       ALIQUOTA_ICMS_ST:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       ALIQUOTA_RED_BASE_DE_CALCULO_ICMS:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       MVA:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       FCP:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       COD_BENEFICIO_FISCAL:{
         type: Sequelize.STRING,
@@ -106,27 +100,39 @@ module.exports = {
       },
       ANTECIPADO:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       PERCENTUAL_DIFERIMENTO:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       PERCENTUAL_ISENCAO:{
         type: Sequelize.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: true,
       },
       CODIGO_ANP:{
         type: Sequelize.STRING,
         allowNull: true,
       },
+      CRT:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      GTIN:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      PRODUTO:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
     });
   },
@@ -139,6 +145,6 @@ module.exports = {
      * await queryInterface.dropTable('users');
      * 
      */
-    await queryInterface.dropTable('planilha');
+    await queryInterface.dropTable('ProdutosFiscais');
   }
 };

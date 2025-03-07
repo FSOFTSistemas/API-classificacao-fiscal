@@ -1,0 +1,68 @@
+.container {
+  padding: 24px;
+  background-color: #1a1a1a;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.fileInput {
+  padding: 8px;
+  border: 2px solid #555;
+  border-radius: 8px;
+  background-color: #2a2a2a;
+  color: white;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.radioGroup {
+  margin-bottom: 24px;
+}
+
+.radioTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.radioLabel {
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.radioInput {
+  margin-right: 8px;
+}
+
+.jsonOutput {
+  background-color: #333;
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 16px;
+}
+
+.clearButton {
+  background-color: #e53e3e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.clearButton:hover {
+  background-color: #c53030;
+}
