@@ -35,7 +35,7 @@ export default function Conversor() {
         ALIQUOTA_PIS: row[9] ? row[9].replace(",", ".") : "",
         ALIQUOTA_COFINS: row[10] ? row[10].replace(",", ".") : "",
         CFOP: row[12] ? row[12].slice(-4) : "",
-        CST_CSOSN: row[13] || "",
+        CST_CSOSN: row[13] ? "0" + row[13] : "",
         AD_REM_ICMS: row[14] || "",
         ALIQUOTA_ICMS: row[15] ? row[15].replace(",", ".") : "",
         RED_BASE_DE_CALCULO_ICMS: row[16] ? row[16].replace(",", ".") : "",
