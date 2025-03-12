@@ -14,10 +14,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "Admin",
+    "password": "Admin",
     "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "host": "127.0.0.1",  
+    "dialect": "mysql",
+    "port": 3306
   }
 }

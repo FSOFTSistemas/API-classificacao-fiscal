@@ -5,12 +5,20 @@
   "scripts": {
     "dev": "next dev -p 5500",
     "build": "next build",
-    "start": "next start",
+    "backend": "cd backend && node server.js",
+    "frontend-build": "next build",
+    "frontend-start": "next start -p 5500",
+    "frontend": "npm run frontend-build && npm run frontend-start",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
     "lint": "next lint"
   },
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "concurrently": "^9.1.2",
     "convert-excel-to-json": "^1.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "mariadb": "^3.4.0",
     "mysql2": "^3.13.0",
     "next": "15.2.1",
