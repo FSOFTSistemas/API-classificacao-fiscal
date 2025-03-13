@@ -60,7 +60,7 @@ module.exports = {
       },
       CST_CSOSN:{
         type: Sequelize.STRING,
-        allowNull: true, //adicionar 0 a esquerda para 3 dígitos
+        allowNull: true, 
       },
       AD_REM_ICMS:{
         type: Sequelize.STRING,

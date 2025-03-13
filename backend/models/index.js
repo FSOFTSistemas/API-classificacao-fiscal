@@ -11,10 +11,16 @@ const env = process.env.NODE_ENV || 'development';
 const db = {};
 
 let sequelize;
-
+console.log("antes da conexão");
 if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
+  console.log("conectando com os seguintes dados:")
+  console.log("DB_DATABASE: ", process.env.DB_DATABASE);
+  console.log("DB_USERNAME: ", process.env.DB_USERNAME);
+  console.log("DB_PASSWORD: ", process.env.DB_PASSWORD ? process.env.DB_PASSWORD : "senha vazia");
+  console.log("DB_HOST: ", process.env.DB_HOST);
+  console.log("DB_PORT: ", process.env.DB_PORT);
   sequelize = new Sequelize(
     process.env.DB_DATABASE,
     process.env.DB_USERNAME,
@@ -25,6 +31,7 @@ if (process.env.DATABASE_URL) {
       dialect: 'mysql'
     }
   );
+  console.log("depois da conexão");
 }
 
 fs
