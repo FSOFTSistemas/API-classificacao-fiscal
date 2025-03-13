@@ -7,31 +7,36 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
+const config = require(path.join(__dirname, '../config/config.json'))[env];
 const db = {};
 
+console.log("env:", env)
 let sequelize;
 console.log("antes da conexão");
+
 if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL);
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'mysql'
+  });
 } else {
-  console.log("conectando com os seguintes dados:")
-  console.log("DB_DATABASE: ", process.env.DB_DATABASE);
-  console.log("DB_USERNAME: ", process.env.DB_USERNAME);
-  console.log("DB_PASSWORD: ", process.env.DB_PASSWORD ? process.env.DB_PASSWORD : "senha vazia");
-  console.log("DB_HOST: ", process.env.DB_HOST);
-  console.log("DB_PORT: ", process.env.DB_PORT);
+  console.log("Usando configuração do config.json para o ambiente:", env);
+  console.log("banco de dados:", config.database)
+  console.log("usuário:", config.username)
+  console.log("senha: ", config.password)
+  console.log("host:", config.host)
+  console.log("porta:", config.port)
+  console.log("dialeto:", config.dialect)
   sequelize = new Sequelize(
-    process.env.DB_DATABASE,
-    process.env.DB_USERNAME,
-    process.env.DB_PASSWORD || null,  // Adicionei a verificação para tratar senha vazia
+    config.database,
+    config.username,
+    config.password,
     {
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      dialect: 'mysql'
+      host: config.host,
+      port: config.port,
+      dialect: 'mysql',
     }
   );
-  console.log("depois da conexão");
 }
 
 fs
