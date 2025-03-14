@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 export default function Conversor() {
   const [jsonData, setJsonData] = useState(null);
   const [crtValue, setCrtValue] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -67,6 +68,7 @@ export default function Conversor() {
   };
 
   const sendDataToBackend = async (data) => {
+    setLoading(true)
     try {
       console.log(data);
       const response = await fetch("http://localhost:5000/upload", {
@@ -82,6 +84,8 @@ export default function Conversor() {
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
       alert("Erro ao enviar dados. Verifique o console para mais detalhes.");
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -132,16 +136,18 @@ export default function Conversor() {
         type="file"
         accept=".xlsx, .xls"
         onChange={handleFileUpload}
+        disabled={!crtValue}
         className={styles.fileInput}
       />
+      {loading && <div className={styles.loader}></div>}
       {jsonData && (
         <>
-          <pre className={styles.jsonOutput}>
-            {JSON.stringify(jsonData, null, 2)}
-          </pre>
           <button onClick={clearData} className={styles.clearButton}>
             Limpar Dados
           </button>
+          <pre className={styles.jsonOutput}>
+            {JSON.stringify(jsonData, null, 2)}
+          </pre>
         </>
       )}
     </div>

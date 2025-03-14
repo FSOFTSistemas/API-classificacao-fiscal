@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { sequelize } = require('./models');
+const { sequelize , ProdutosFiscais } = require('./models');
 const { uploadData } = require('./controllers/uploadController');
 
 const app = express();
@@ -25,6 +25,36 @@ sequelize
 
 app.get('/', (req, res) => {
   res.send('Back-end está funcionando!');
+});
+
+app.get('/api/produto/:codigo', async (req, res) => { // /api/produto/84831019?crt=01
+  const codigo = req.params.codigo;
+  const crt = req.query.crt;
+
+  try {
+    let produtoFiscal;
+
+    if (crt !== '01' && crt !== '02' && crt !== '03') {
+      return res.status(400).json({ message: 'CRT inválido. Deve ser 01, 02 ou 03.' });
+    }
+
+    if (/^\d{8}$/.test(codigo) && !codigo.startsWith('789')) {
+      produtoFiscal = await ProdutosFiscais.findOne({ where: { NCM: codigo, CRT: crt } });
+    } else if (/^789\d{5}$/.test(codigo) || /^789\d{10}$/.test(codigo)) {
+      produtoFiscal = await ProdutosFiscais.findOne({ where: { GTIN: codigo, CRT: crt } });
+    } else {
+      return res.status(400).json({ message: 'Código inválido.' });
+    }
+
+    if (produtoFiscal) {
+      res.json(produtoFiscal);
+    } else {
+      res.status(404).json({ message: 'Produto não encontrado' });
+    }
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    res.status(500).json({ message: 'Erro interno do servidor' });
+  }
 });
 
 const PORT = 5000;

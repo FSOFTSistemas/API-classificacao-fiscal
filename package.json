@@ -10,6 +10,8 @@
     "frontend-start": "next start -p 5500",
     "frontend": "npm run frontend-build && npm run frontend-start",
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "pm2-start": "pm2 start npm --name \"my-app\" -- run start",
+    "pm2-start-dev": "pm2 start npm --name \"my-app-dev\" -- run dev",
     "lint": "next lint"
   },
   "dependencies": {
