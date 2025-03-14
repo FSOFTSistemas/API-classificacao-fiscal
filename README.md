@@ -1,36 +1,87 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# Projeto API-classificacao-fiscal
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Converte uma planilha pre-definida em json e adiciona ao banco de dados.
+API que retorna o produto com base no NCM ou GTIN tendo como parâmetro o CRT.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pré-requisitos
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Node.js instalado
+- MySQL instalado e configurado
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Instalação
 
-## Learn More
+1. Clone o repositório:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    git clone https://github.com/FSOFTSistemas/API-classificacao-fiscal.git
+    cd API-classificacao-fiscal
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Instale as dependências do projeto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+## Executando o Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Inicie o servidor:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    ```bash
+    npm run start
+    ```
+
+    O frontend será iniciado na porta 5500 e o backend na porta 5000.
+
+## Banco de Dados
+
+Este projeto utiliza MySQL como banco de dados. Certifique-se de que o MySQL esteja instalado e configurado corretamente.
+Para configurar as credenciais do banco navegue até a pasta `config` e modifique o arquivo `config.json`
+
+## Migrações
+
+Para rodar as migrações do banco de dados, siga os passos abaixo:
+
+1. Navegue até a pasta `backend`:
+
+    ```bash
+    cd backend
+    ```
+
+2. Execute as migrações:
+
+    ```bash
+    npm run migrate
+    ```
+
+3. (Opcional) Para desfazer as migrações, execute:
+
+    ```bash
+    npm run migrate-undo
+    ```
+
+## Endpoints da API
+
+### Verificação do Backend
+
+- **Rota:** `/`
+- **Método:** `GET`
+- **Descrição:** Retorna uma mensagem confirmando que o backend está funcionando.
+
+### Produto
+
+- **Rota:** `/api/produto/:codigo`
+- **Método:** `GET`
+- **Parâmetro:** `codigo` (Código do produto), `crt` (Parâmetro de query)
+- **Exemplo:** `http://localhost:5000/api/produto/84831019?crt=03`
+- **Descrição:** Retorna informações do produto com base no código fornecido.
+
+### Upload de Arquivos
+
+- **Rota:** `/upload`
+- **Método:** `POST`
+- **Descrição:** Endpoint para upload de arquivos no frontend.
+
