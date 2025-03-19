@@ -57,7 +57,7 @@ app.get('/api/produto/:codigo', async (req, res) => { // /api/produto/84831019?c
   }
 });
 
-const PORT = 5000;
+const PORT = 5501;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });

@@ -10,7 +10,7 @@
     "frontend-start": "next start -p 5500",
     "frontend": "npm run frontend-build && npm run frontend-start",
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "pm2-start": "pm2 start npm --name \"API-fiscal\" -- run start",
+    "pm2-start": "sudo pm2 start npm --name \"API-fiscal\" -- run start",
     "pm2-start-dev": "pm2 start npm --name \"API-fiscal-dev\" -- run dev",
     "lint": "next lint"
   },
