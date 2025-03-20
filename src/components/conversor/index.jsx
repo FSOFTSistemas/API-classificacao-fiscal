@@ -120,7 +120,7 @@ export default function Conversor() {
     setLoading(true)
     try {
       console.log(data);
-      const response = await fetch("http://localhost:5501/upload", {
+      const response = await fetch("https://localhost:5501/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
