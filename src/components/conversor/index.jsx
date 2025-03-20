@@ -72,7 +72,7 @@ export default function Conversor() {
         }));
       } else if (selectedSheet === "NCMs_ENCONTRADOS") {
         formattedData = rawData.map((row) => ({
-          NCM: row[2] ? row[2].replace(/\./g, "") : "",
+          NCM: row[0] ? row[0].replace(/\./g, "") : "",
           DESCRICAO: row[1] || "",
           CEST: row[2] || "",
           ALIQUOTA_IPI: row[3] ? row[3].replace(",", ".") : "",
