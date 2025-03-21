@@ -71,7 +71,7 @@ https.createServer(options, app).listen(PORT_HTTPS, () => {
   console.log(`Servidor HTTPS no ar na porta ${PORT_HTTPS}`);
 });
 
-const PORT = 5501;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+// const PORT = 5501;
+// app.listen(PORT, () => {
+//   console.log(`Servidor rodando na porta ${PORT}`);
+// });
